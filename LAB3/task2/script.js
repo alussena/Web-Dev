@@ -9,11 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
         input.value = '';
     });
 
-    function addTask(text) {
+    function addTask(text, done = false) {
         if (text.trim() === '') return;
 
         const li = document.createElement('li');
-        
+        const existingTasks = Array.from(list.querySelectorAll('li span')).map(span => span.textContent);
+        if (existingTasks.includes(text)) {
+            alert('This task already exists!');
+            return;
+        }
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.addEventListener('change', () => {
